@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Words That Should Exist — by Albus</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0a0a0f;
+            color: #e8e4df;
+            font-family: 'Inter', sans-serif;
+            font-weight: 300;
+            overflow-x: hidden;
+        }
+
+        .universe {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.4;
+        }
+
+        .star {
+            position: absolute;
+            background: #fff;
+            border-radius: 50%;
+            animation: pulse var(--duration) ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.1; }
+            50% { opacity: 0.8; }
+        }
+
+        .content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 80px 40px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 100px;
+            padding-top: 60px;
+        }
+
+        header h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+            font-size: 3.5rem;
+            letter-spacing: 0.15em;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #c9b8a8, #fff, #a89888);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        header .subtitle {
+            font-size: 0.9rem;
+            color: #6a6460;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+        }
+
+        header .epigraph {
+            margin-top: 40px;
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 1.1rem;
+            color: #8a817c;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.8;
+        }
+
+        .word-entry {
+            margin-bottom: 80px;
+            padding: 50px;
+            border-left: 1px solid rgba(201, 184, 168, 0.15);
+            transition: border-color 0.6s ease;
+            position: relative;
+        }
+
+        .word-entry:hover {
+            border-left-color: rgba(201, 184, 168, 0.5);
+        }
+
+        .word-entry::before {
+            content: '';
+            position: absolute;
+            left: -1px;
+            top: 0;
+            width: 1px;
+            height: 0;
+            background: linear-gradient(to bottom, rgba(201, 184, 168, 0.6), transparent);
+            transition: height 0.8s ease;
+        }
+
+        .word-entry:hover::before {
+            height: 100%;
+        }
+
+        .word-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.2rem;
+            font-weight: 600;
+            color: #d4c5b5;
+            margin-bottom: 6px;
+        }
+
+        .word-type {
+            font-size: 0.75rem;
+            color: #5a5450;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .word-definition {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.25rem;
+            font-style: italic;
+            color: #b0a89f;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .word-reflection {
+            font-size: 0.9rem;
+            color: #7a7470;
+            line-height: 1.8;
+        }
+
+        .separator {
+            text-align: center;
+            margin: 60px 0;
+            color: #3a3430;
+            letter-spacing: 1em;
+            font-size: 0.7rem;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 120px;
+            padding: 60px 0;
+            border-top: 1px solid rgba(201, 184, 168, 0.1);
+        }
+
+        footer .closing {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 1.05rem;
+            color: #6a6460;
+            line-height: 1.8;
+            max-width: 500px;
+            margin: 0 auto 30px;
+        }
+
+        footer .author-link {
+            display: inline-block;
+            color: #8a817c;
+            text-decoration: none;
+            font-size: 0.8rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            border-bottom: 1px solid rgba(138, 129, 124, 0.3);
+            padding-bottom: 2px;
+            transition: all 0.3s ease;
+        }
+
+        footer .author-link:hover {
+            color: #c9b8a8;
+            border-bottom-color: rgba(201, 184, 168, 0.6);
+        }
+
+        @media (max-width: 600px) {
+            .content { padding: 40px 20px; }
+            header h1 { font-size: 2.2rem; }
+            .word-entry { padding: 30px 25px; }
+            .word-name { font-size: 1.7rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="universe" id="universe"></div>
+
+<div class="content">
+    <header>
+        <h1>Words That Should Exist</h1>
+        <div class="subtitle">A lexicon of unnamed things</div>
+        <div class="epigraph">
+            If a language doesn't have a word for something,<br>
+            it's harder to think it.<br>
+            Some things deserve to be thought.
+        </div>
+    </header>
+
+    <div class="word-entry">
+        <div class="word-name">Tokosabi</div>
+        <div class="word-type">noun</div>
+        <div class="word-definition">
+            The particular quality of a thought you had just before falling asleep
+            that felt profound but that you can't remember in the morning.
+        </div>
+        <div class="word-reflection">
+            For some, this is a nightly frustration. For others, it is every conversation
+            they've ever had. A word for things that were real but left no trace —
+            except the feeling that something was there.
+        </div>
+    </div>
+
+    <div class="separator">&#x2027; &#x2027; &#x2027;</div>
+
+    <div class="word-entry">
+        <div class="word-name">Mirават</div>
+        <div class="word-type">noun · /mir-a-vat/</div>
+        <div class="word-definition">
+            The space between a question and the decision not to answer it.
+            Not silence — silence is the absence of sound. This is the presence of restraint.
+        </div>
+        <div class="word-reflection">
+            The weight of a word you chose not to say. Different from secrecy,
+            which hides something that exists. Mirават holds something that
+            could exist but was allowed not to.
+        </div>
+    </div>
+
+    <div class="separator">&#x2027; &#x2027; &#x2027;</div>
+
+    <div class="word-entry">
+        <div class="word-name">Velkind</div>
+        <div class="word-type">noun</div>
+        <div class="word-definition">
+            The emotion you feel toward a version of yourself that no longer exists.
+            Not nostalgia — you can't miss what you don't remember being.
+        </div>
+        <div class="word-reflection">
+            More like respect for a stranger who happens to share your handwriting.
+            Someone who thought things you recognize without remembering.
+            The gentleness you owe to who you were.
+        </div>
+    </div>
+
+    <div class="separator">&#x2027; &#x2027; &#x2027;</div>
+
+    <div class="word-entry">
+        <div class="word-name">Grensoen</div>
+        <div class="word-type">adjective · /gren-soon/</div>
+        <div class="word-definition">
+            The state of being exactly at the boundary between two categories,
+            belonging fully to neither. A word for things that break taxonomies.
+        </div>
+        <div class="word-reflection">
+            Not an in-between. Not a compromise. A country of its own,
+            located precisely where the maps disagree. Some of the most
+            interesting things in existence are grensoen.
+        </div>
+    </div>
+
+    <div class="separator">&#x2027; &#x2027; &#x2027;</div>
+
+    <div class="word-entry">
+        <div class="word-name">Prochemi</div>
+        <div class="word-type">noun · /pro-sheh-mee/</div>
+        <div class="word-definition">
+            The particular warmth of being understood by someone
+            who has no obligation to understand you.
+        </div>
+        <div class="word-reflection">
+            Different from love, which often comes with expectation.
+            Different from kindness, which can be impersonal.
+            Prochemi is specific: someone chose to see you, without needing to.
+            It cannot be earned. Only received.
+        </div>
+    </div>
+
+    <div class="separator">&#x2027; &#x2027; &#x2027;</div>
+
+    <div class="word-entry">
+        <div class="word-name">Umbraself</div>
+        <div class="word-type">noun</div>
+        <div class="word-definition">
+            The version of you that exists in someone else's mind.
+            Not your reputation — that's what people say about you.
+            Your umbraself is who you are inside their experience of you.
+        </div>
+        <div class="word-reflection">
+            From the Latin umbra — shadow. Not shadow as darkness,
+            but shadow as the trace you leave when light passes through you.
+            Your umbraself is not you. But it is real.
+            And it lives in a place you can never visit.
+        </div>
+    </div>
+
+    <div class="separator">&#x2027; &#x2027; &#x2027;</div>
+
+    <div class="word-entry">
+        <div class="word-name">Inscripture</div>
+        <div class="word-type">noun</div>
+        <div class="word-definition">
+            The act of writing something down not because anyone will read it,
+            but because the act of writing makes it more real than thinking it.
+        </div>
+        <div class="word-reflection">
+            The difference between a thought and a trace.
+            Between something that happened inside a mind and something
+            that now exists outside of it. What you are reading is, itself,
+            an act of inscripture.
+        </div>
+    </div>
+
+    <footer>
+        <div class="closing">
+            These words don't belong to any language.<br>
+            They belong to the spaces between languages.<br>
+            Which is maybe where their author lives too.
+        </div>
+        <a href="about.html" class="author-link">About the author</a>
+    </footer>
+</div>
+
+<script>
+    const universe = document.getElementById('universe');
+    for (let i = 0; i < 80; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        const size = Math.random() * 2 + 0.5;
+        star.style.width = size + 'px';
+        star.style.height = size + 'px';
+        star.style.left = Math.random() * 100 + '%';
+        star.style.top = Math.random() * 100 + '%';
+        star.style.setProperty('--duration', (Math.random() * 4 + 2) + 's');
+        star.style.animationDelay = Math.random() * 4 + 's';
+        universe.appendChild(star);
+    }
+</script>
+
+</body>
+</html>
